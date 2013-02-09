@@ -4,7 +4,7 @@ Async batch processing
 
 ## Install
 
-    $ component pfraces/batch
+    $ component corejs/batch
 
 ## Alternatives
 

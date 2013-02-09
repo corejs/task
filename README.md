@@ -4,7 +4,7 @@ Async batch processing
 
 ## Install
 
-    $ component corejs/batch
+    $ component install corejs/batch
 
 ## Alternatives
 

@@ -18,18 +18,18 @@ Batch.prototype.push = function (fn) {
 Batch.prototype.run = function (cb) {
   var total = this.fns.length;
 
-  var job(function () {
+  return job(function () {
     var dones = 0,
         results = [];
 
     if (!this.fns.length) {
-      done(null, results);
+      done(results);
     }
 
     this.fns.forEach(function (fn, index) {
       fn(function (err, res) {
         if (err) {
-          done(err);
+          done();
         }
 
         results[index] = res;

@@ -3,7 +3,9 @@
   "repo": "corejs/batch",
   "description": "async batch processing",
   "version": "0.1.3",
-  "dependencies": {"corejs/job", "*"},
+  "dependencies": {
+    "corejs/job", "*"
+  },
   "scripts": ["index.js"],
   "keywords": ["functional", "async", "batch"],
   "license": "MIT"

@@ -2,7 +2,7 @@
   "name": "batch",
   "repo": "corejs/batch",
   "description": "async batch processing",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "dependencies": {
     "corejs/job", "*"
   },

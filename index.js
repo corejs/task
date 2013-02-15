@@ -1,13 +1,11 @@
 var job = require('job'),
     done = job.done;
 
-var batch = module.exports = (function () {
-  return new Batch();
-})();
-
 var Batch = function () {
   this.fns = [];
 };
+
+var batch = module.exports = new Batch();
 
 Batch.prototype.push = function (fn) {
   this.fns.push(fn);

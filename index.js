@@ -1,7 +1,9 @@
 var job = require('job'),
     done = job.done;
 
-var batch = module.exports = new Batch();
+var batch = module.exports = (function () {
+  return new Batch();
+})();
 
 var Batch = function () {
   this.fns = [];

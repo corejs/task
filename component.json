@@ -1,8 +1,8 @@
 {
-  "name": "batch",
-  "repo": "corejs/batch",
+  "name": "task",
+  "repo": "corejs/task",
   "description": "synchronous batch processing",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "dependencies": {},
   "scripts": ["index.js"],
   "keywords": ["functional", "batch", "processing"],

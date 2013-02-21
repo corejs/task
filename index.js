@@ -68,6 +68,6 @@ var Task = function () {
 var addTask = function (tasks, task, ttl) {
   tasks.push({ 
     task: task,
-    ttl: ttl || Infinity
+    ttl: ttl || 1
   });
 };

@@ -3,21 +3,29 @@ module.exports = function () {
 };
 
 var Task = function () {
-  var self = this,
-      tasks = [];
+  var tasks = [],
+      befores = [],
+      afters = [];
 
-  this.before = [];
-  this.after = [];
+  this.before = function (fn) {
+    befores.push(fn);
+    return this;
+  };
+
+  this.after = function (fn) {
+    befores.push(fn);
+    return this;
+  };
 
   this.add = function (task, ttl) {
     var work = function () {
-      self.before.forEach(function (fn) {
+      befores.forEach(function (fn) {
         fn();
       });
 
       var result = task();
 
-      self.after.forEach(function (fn) {
+      afters.forEach(function (fn) {
         fn();
       });
 
@@ -25,7 +33,14 @@ var Task = function () {
     };
     
     addTask(tasks, work, ttl);
-    return self;
+    return this;
+  };
+
+  this.reset = function () {
+    tasks = [];
+    befores = [];
+    afters = [];
+    return this;
   };
 
   this.run = function () {

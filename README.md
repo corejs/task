@@ -1,11 +1,7 @@
 # Batch
 
-Async batch processing
+Synchronous batch processing
 
 ## Install
 
-    $ component install corejs/batch
-
-## Alternatives
-
-*   https://github.com/component/batch
+    $ component install corejs/task

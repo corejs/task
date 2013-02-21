@@ -1,25 +1,40 @@
 module.exports = function () {
-  return new Batch();
+  return new Task();
 };
 
-var Batch = function (fns) {
-  this.fns = fns || [];
+var Task = function () {
+  var self = this,
+      tasks = [];
+
+  this.add = function (task, ttl) {
+    addTask(tasks, task, ttl);
+    return self;
+  };
+
+  this.work = function () {
+    var next = [],
+        results = [];
+
+    tasks.forEach(function (job, index) {
+      var task = job.task,
+          ttl = job.ttl;
+
+      results[index] = task();
+      ttl--;
+
+      if (ttl) {
+        addTask(next, task, ttl);
+      }
+    });
+
+    tasks = next;
+    return results;
+  };
 };
 
-Batch.prototype.add = function (fn) {
-  this.fns.push(fn);
-};
-
-Batch.prototype.run = function (cb) {
-  var pending = this.fns.length,
-      results = [];
-
-  this.fns.forEach(function (fn, index) {
-    results[index] = fn();
-    pending--;
-
-    if (!pending) {
-      cb(results);
-    }
+var addTask = function (tasks, task, ttl) {
+  tasks.push({ 
+    task: task,
+    ttl: ttl || Infinity
   });
 };

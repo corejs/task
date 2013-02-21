@@ -6,16 +6,35 @@ var Task = function () {
   var self = this,
       tasks = [];
 
+  this.before = [];
+  this.after = [];
+
   this.add = function (task, ttl) {
-    addTask(tasks, task, ttl);
+    var work = function () {
+      self.before.forEach(function (fn) {
+        fn();
+      });
+
+      var result = task();
+
+      self.after.forEach(function (fn) {
+        fn();
+      });
+
+      return result;
+    };
+    
+    addTask(tasks, work, ttl);
     return self;
   };
 
   this.run = function () {
-    var next = [],
+    var running = tasks,
         results = [];
 
-    tasks.forEach(function (job, index) {
+    tasks = [];
+
+    running.forEach(function (job, index) {
       var task = job.task,
           ttl = job.ttl;
 
@@ -23,11 +42,10 @@ var Task = function () {
       ttl--;
 
       if (ttl) {
-        addTask(next, task, ttl);
+        addTask(tasks, task, ttl);
       }
     });
 
-    tasks = next;
     return results;
   };
 };

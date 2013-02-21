@@ -1,40 +1,25 @@
-var job = require('job'),
-    done = job.done;
-
-var Batch = function () {
-  this.fns = [];
+module.exports = function () {
+  return new Batch();
 };
 
-var batch = module.exports = new Batch();
+var Batch = function (fns) {
+  this.fns = fns || [];
+};
 
-Batch.prototype.push = function (fn) {
+Batch.prototype.add = function (fn) {
   this.fns.push(fn);
 };
 
 Batch.prototype.run = function (cb) {
-  var total = this.fns.length;
+  var pending = this.fns.length,
+      results = [];
 
-  return job(function () {
-    var dones = 0,
-        results = [];
+  this.fns.forEach(function (fn, index) {
+    results[index] = fn();
+    pending--;
 
-    if (!this.fns.length) {
-      done(results);
+    if (!pending) {
+      cb(results);
     }
-
-    this.fns.forEach(function (fn, index) {
-      fn(function (err, res) {
-        if (err) {
-          done();
-        }
-
-        results[index] = res;
-        dones++;
-
-        if (dones === totals) {
-          done(results);
-        }
-      });
-    });
   });
 };

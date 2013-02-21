@@ -3,43 +3,10 @@ module.exports = function () {
 };
 
 var Task = function () {
-  var tasks = [],
-      befores = [],
-      afters = [];
-
-  this.before = function (fn) {
-    befores.push(fn);
-    return this;
-  };
-
-  this.after = function (fn) {
-    befores.push(fn);
-    return this;
-  };
+  var tasks = [];
 
   this.add = function (task, ttl) {
-    var work = function () {
-      befores.forEach(function (fn) {
-        fn();
-      });
-
-      var result = task();
-
-      afters.forEach(function (fn) {
-        fn();
-      });
-
-      return result;
-    };
-    
-    addTask(tasks, work, ttl);
-    return this;
-  };
-
-  this.reset = function () {
-    tasks = [];
-    befores = [];
-    afters = [];
+    addTask(tasks, task, ttl);
     return this;
   };
 

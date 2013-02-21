@@ -11,7 +11,7 @@ var Task = function () {
     return self;
   };
 
-  this.work = function () {
+  this.run = function () {
     var next = [],
         results = [];
 
